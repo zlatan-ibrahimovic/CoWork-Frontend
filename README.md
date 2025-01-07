@@ -10,9 +10,9 @@ Node.js (version 16 ou supérieure) : Télécharger Node.js ici (https://nodejs.
 
 Angular CLI (Interface en ligne de commande pour Angular) :
 
-```bash
-npm install -g @angular/cli
-```
+    ```bash
+    npm install -g @angular/cli
+    ```
 
 # Initialisation du projet
 
@@ -20,27 +20,27 @@ Suivez ces étapes pour cloner et démarrer le projet sur votre machine locale :
 
 **Clonez le projet** : Téléchargez ou clonez ce dépôt en utilisant la commande suivante :
 
-```bash
-git clone https://github.com/Tsuna21/CoWork-Backend.git
-```
+    ```bash
+    git clone https://github.com/Tsuna21/CoWork-Backend.git
+    ```
 
 **Accédez au dossier du projet** :
 
-```bash
-cd Nom du dossier racine
-```
+    ```bash
+    cd Nom du dossier racine
+    ```
 
 **Installez les dépendances** : Installez tous les modules nécessaires avec npm :
 
-```bash
-npm install
-```
+    ```bash
+    npm install
+    ```
 
 **Lancez le projet** : Démarrez le serveur de développement Angular avec :
 
-```bash
-ng serve
-```
+    ```bash
+    ng serve
+    ```
 
 **Accédez à l'application dans votre navigateur** : Ouvrez votre navigateur et allez à l'adresse suivante :
 
@@ -52,31 +52,31 @@ Voici les commandes les plus importantes pour travailler avec ce projet :
 
 **Démarrer le serveur de développement** :
 
-```bash
-ng serve
-```
+    ```bash
+    ng serve
+    ```
 
 Cela lance l'application sur http://localhost:4200.
 
 **Construire le projet pour la production** :
 
-```bash
-ng build --prod
-```
+    ```bash
+    ng build --prod
+    ```
 
 Génère les fichiers optimisés pour un déploiement.
 
 **Créer un nouveau composant** :
 
-```bash
-ng generate component <nom-du-composant>
-```
+    ```bash
+    ng generate component <nom-du-composant>
+    ```
 
 **Mettre à jour Angular** :
 
-```bash
-ng update @angular/cli @angular/core
-```
+    ```bash
+    ng update @angular/cli @angular/core
+    ```
 
 # Structure du projet
 
@@ -94,7 +94,7 @@ Voici les dossiers et fichiers principaux du projet :
 
 **package.json** : Liste des dépendances du projet.
 
-**node_modules/** */ : Contient toutes les bibliothèques installées via npm (automatiquement généré).
+**node_modules/** : Contient toutes les bibliothèques installées via npm (automatiquement généré).
 
 # Dépendances importantes
 
