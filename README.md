@@ -21,7 +21,7 @@ Suivez ces étapes pour cloner et démarrer le projet sur votre machine locale :
 **Clonez le projet** : Téléchargez ou clonez ce dépôt en utilisant la commande suivante :
 
 ```bash
-git clone <https://github.com/Tsuna21/CoWork-Backend.git>
+git clone https://github.com/Tsuna21/CoWork-Backend.git
 ```
 
 **Accédez au dossier du projet** :
@@ -32,13 +32,13 @@ cd CoWork
 
 **Installez les dépendances** : Installez tous les modules nécessaires avec npm :
 
-```
+```bash
 npm install
 ```
 
 **Lancez le projet** : Démarrez le serveur de développement Angular avec :
 
-```
+```bash
 ng serve
 ```
 
@@ -52,7 +52,7 @@ Voici les commandes les plus importantes pour travailler avec ce projet :
 
 **Démarrer le serveur de développement** :
 
-```
+```bash
 ng serve
 ```
 
