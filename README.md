@@ -118,6 +118,15 @@ Voici quelques-unes des dépendances principales utilisées dans ce projet :
 
 3 - Consultez les logs pour toute erreur et suivez les instructions pour les corriger.
 
+# Ressources Utiles
+
+Voici quelques ressources pour approfondir vos connaissances sur Angular :
+
+* [Guide Angular (officiel)](https://angular.io/docs)
+* [Documentation de l'Angular CLI](https://angular.io/cli)
+* [Documentation TypeScript](https://www.typescriptlang.org/docs/)
+* [Documentation Node.js](https://nodejs.org)
+
 # Auteur
 
-Ce projet a été créé dans le cadre d'un apprentissage sur Angular.
+Ce projet a été créé dans le cadre d'un stage sur Angular.
