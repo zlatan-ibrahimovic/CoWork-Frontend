@@ -27,7 +27,7 @@ git clone https://github.com/Tsuna21/CoWork-Backend.git
 **Accédez au dossier du projet** :
 
 ```bash
-cd CoWork
+cd Nom du dossier racine
 ```
 
 **Installez les dépendances** : Installez tous les modules nécessaires avec npm :
