@@ -1,6 +1,6 @@
-# CoWork
+# CoWork-Frontend
 
-Bienvenue sur CoWork, une application Angular créée pour faciliter la collaboration dans des espaces de coworking.
+Bienvenue sur le frontend de mon application CoWork, une application Angular créée pour faciliter la collaboration grâce à un Gestionnaire de Tâches Collaboratif.
 
 # Prérequis
 
