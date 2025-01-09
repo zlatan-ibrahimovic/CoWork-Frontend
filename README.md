@@ -6,7 +6,7 @@ Bienvenue sur le **Frontend** de mon application **CoWork**, une application Ang
 
 Avant de commencer, assurez-vous d'avoir installé les logiciels suivants sur votre machine :
 
-Node.js (version 16 ou supérieure) : Télécharger Node.js ici (https://nodejs.org/fr)
+Node.js (version 16 ou supérieure) : Télécharger [Node.js ici](https://nodejs.org/fr)
 
 Angular CLI (Interface en ligne de commande pour Angular) :
 
@@ -32,9 +32,9 @@ cd Nom du dossier racine
 
 **Installez les dépendances** : Installez tous les modules nécessaires avec npm :
 
-    ```bash
-    npm install
-    ```
+```bash
+npm install
+```
 
 **Lancez le projet** : Démarrez le serveur de développement Angular avec :
 
