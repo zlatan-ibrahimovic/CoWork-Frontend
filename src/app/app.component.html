@@ -14,7 +14,8 @@
         <label for="password">Mot de passe :</label>
         <input id="password" type="password" formControlName="password" />
         <div *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid">
-          <small>Mot de passe requis.</small>
+          <small *ngIf="signupForm.get('password')?.errors?.['required']">Mot de passe requis.</small>
+          <small *ngIf="signupForm.get('password')?.errors?.['minlength']">Mot de passe de 5 caractères minimum.</small>
         </div>
       </div>
   
