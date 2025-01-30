@@ -6,12 +6,32 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8080/api/users';
+  private authApiUrl = 'http://localhost:8080/api/auth';
+  private userApiUrl = 'http://localhost:8080/api/users';
 
   constructor(private http: HttpClient) {}
 
   register(userData: { email: string; password: string }): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(`${this.apiUrl}/register`, userData, { headers });
+    return this.http.post(`${this.userApiUrl}/register`, userData, { headers });
   }
+
+  login(credentials: { email: string; password: string }): Observable<any> {
+    return this.http.post(`${this.authApiUrl}/login`, credentials, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    });
+  }
+
+  saveToken(token: string): void {
+    localStorage.setItem('authToken', token);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('authToken');
+  }
+
+  logout(): void {
+    localStorage.removeItem('authToken');
+  }
+
 }

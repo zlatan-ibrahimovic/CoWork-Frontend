@@ -4,7 +4,7 @@ import { ReactiveFormsModule,FormBuilder, FormGroup, Validators } from '@angular
 import { UserService } from '../user.service';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-signup',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './signup.component.html',

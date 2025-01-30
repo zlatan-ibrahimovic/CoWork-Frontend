@@ -1,4 +1,4 @@
-<div class="container">
+<div *ngIf="!isLoggedIn" class="container">
     <h1>Connexion</h1>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div>
@@ -21,7 +21,7 @@
         </div>
       </div>
   
-      <button type="submit">Se connecter</button>
+      <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
     </form>
 </div>
   
