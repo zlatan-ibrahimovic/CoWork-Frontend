@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root',
@@ -17,9 +19,18 @@ export class UserService {
   }
 
   login(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.authApiUrl}/login`, credentials, {
+    return this.http.post<{ token: string }>(`${this.authApiUrl}/login`, credentials, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-    });
+    }).pipe(
+      tap((response) => {
+        if (response.token) {
+          this.saveToken(response.token);
+          console.log("Token enregistré :", response.token);
+        } else {
+          console.error("Aucun token reçu !");
+        }
+      })
+    );
   }
 
   saveToken(token: string): void {
