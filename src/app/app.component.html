@@ -1,1 +1,8 @@
+<div class="container">
+    <h1>Bienvenue sur notre application !</h1>
+    
+    <p *ngIf="userService.getToken()">Hello World !</p>  
+    <button *ngIf="userService.getToken()" (click)="logout()">Se déconnecter</button>
+</div>
+
 <router-outlet></router-outlet>

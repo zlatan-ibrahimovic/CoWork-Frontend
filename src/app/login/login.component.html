@@ -1,0 +1,27 @@
+<div *ngIf="!isLoggedIn" class="container">
+    <h1>Connexion</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="email">Email :</label>
+        <input id="email" type="email" formControlName="email" />
+        <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+          <small *ngIf="loginForm.get('email')?.errors?.['required']">Email requis.</small>
+          <small *ngIf="loginForm.get('email')?.errors?.['email']">Email invalide.</small>
+        </div>
+      </div>
+  
+      <div>
+        <label for="password">Mot de passe :</label>
+        <input id="password" type="password" formControlName="password" />
+        <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+          <small *ngIf="loginForm.get('password')?.errors?.['required']">Mot de passe requis.</small>
+          <small *ngIf="loginForm.get('password')?.errors?.['minlength']">
+            Mot de passe de 5 caractères minimum.
+          </small>
+        </div>
+      </div>
+  
+      <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
+    </form>
+</div>
+  
