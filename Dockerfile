@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install --include=dev
 COPY . .
-RUN npx ng build   # Génère l'application Angular
+RUN npm run build   # Génère l'application Angular
 
 # Étape 2 : Servir avec Nginx
 FROM nginx:alpine
