@@ -1,13 +1,13 @@
 # Étape 1 : Builder l'application Angular
-FROM node:18 AS build
+FROM node:18.20.7-alpine3.21 AS build
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
-COPY ./src/*  .
-RUN npm run build --prod
+RUN npm install --include=dev
+COPY . .
+RUN npx ng build   # Génère l'application Angular
 
 # Étape 2 : Servir avec Nginx
 FROM nginx:alpine
-COPY --from=build /app/dist/cowork-frontend /usr/share/nginx/html
+COPY --from=build /app/dist/cowork /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

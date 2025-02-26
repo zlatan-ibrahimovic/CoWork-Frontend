@@ -78,6 +78,11 @@ ng generate component <nom-du-composant>
 ng update @angular/cli @angular/core
 ```
 
+* **Construire image docker :**
+    ```bash
+    docker build . --tag cowork-frontend:$(date +%s)
+    ```
+
 # Structure du projet
 
 Voici les dossiers et fichiers principaux du projet :
