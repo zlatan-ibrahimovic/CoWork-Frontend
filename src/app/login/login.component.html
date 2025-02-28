@@ -1,27 +1,28 @@
-<div *ngIf="!isLoggedIn" class="container">
-    <h1>Connexion</h1>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <div>
-        <label for="email">Email :</label>
-        <input id="email" type="email" formControlName="email" />
-        <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
-          <small *ngIf="loginForm.get('email')?.errors?.['required']">Email requis.</small>
-          <small *ngIf="loginForm.get('email')?.errors?.['email']">Email invalide.</small>
-        </div>
-      </div>
-  
-      <div>
-        <label for="password">Mot de passe :</label>
-        <input id="password" type="password" formControlName="password" />
-        <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
-          <small *ngIf="loginForm.get('password')?.errors?.['required']">Mot de passe requis.</small>
-          <small *ngIf="loginForm.get('password')?.errors?.['minlength']">
-            Mot de passe de 5 caractères minimum.
-          </small>
-        </div>
-      </div>
-  
-      <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
-    </form>
+<div class="container d-flex flex-column justify-content-center align-items-center" style="height: 60vh;">
+
+  <h2 class="fw-bold text-center text-primary mb-3">Connexion</h2>
+
+  <div class="card p-4 shadow-sm" style="width: 350px;">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+              <label for="email" class="form-label">Email :</label>
+              <input id="email" type="email" class="form-control" formControlName="email" />
+              <div class="text-danger small mt-1" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+                  <small *ngIf="loginForm.get('email')?.errors?.['required']">Email requis.</small>
+                  <small *ngIf="loginForm.get('email')?.errors?.['email']">Email invalide.</small>
+              </div>
+          </div>
+
+          <div class="mb-3">
+              <label for="password" class="form-label">Mot de passe :</label>
+              <input id="password" type="password" class="form-control" formControlName="password" />
+              <div class="text-danger small mt-1" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+                  <small *ngIf="loginForm.get('password')?.errors?.['required']">Mot de passe requis.</small>
+                  <small *ngIf="loginForm.get('password')?.errors?.['minlength']">Mot de passe de 5 caractères minimum.</small>
+              </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">Se connecter</button>
+      </form>
+  </div>
 </div>
-  

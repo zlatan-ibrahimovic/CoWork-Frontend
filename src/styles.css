@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #F8F9FA;
+    font-family: Arial, sans-serif;
+}
+
+h1, h2 {
+    color: #0D6EFD;
+}
+
+h3, h4, h5 {
+    color: #495057;
+}
+
+p, label {
+    color: #212529;
+}
+

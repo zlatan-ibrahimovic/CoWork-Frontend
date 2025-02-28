@@ -10,6 +10,7 @@ import { tap } from 'rxjs/operators';
 export class UserService {
   private authApiUrl = 'http://localhost:8080/api/auth';
   private userApiUrl = 'http://localhost:8080/api/users';
+  private TOKEN_KEY = 'authToken';
 
   constructor(private http: HttpClient) {}
 
@@ -34,15 +35,20 @@ export class UserService {
   }
 
   saveToken(token: string): void {
-    localStorage.setItem('authToken', token);
+    localStorage.setItem(this.TOKEN_KEY, `Bearer ${token}`);
   }
 
   getToken(): string | null {
-    return localStorage.getItem('authToken');
+    const token = localStorage.getItem(this.TOKEN_KEY);
+    console.trace("📌 Token récupéré depuis le stockage :", token);
+    if (!token) {
+      console.warn("⚠️ Aucun token trouvé !");
+    }
+    return token;
   }
 
   logout(): void {
-    localStorage.removeItem('authToken');
+    localStorage.removeItem(this.TOKEN_KEY);
   }
 
 }
