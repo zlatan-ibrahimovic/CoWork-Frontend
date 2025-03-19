@@ -41,4 +41,27 @@ export class TaskService {
     return this.http.post<any>(this.apiUrl, task, { headers });
   }
   
-}  
+  updateTask(task: any) {
+    const token = this.userService.getToken(); // Récupère le token
+    console.log(token)
+  
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': token || ''
+    });
+    return this.http.put<any>(`${this.apiUrl}/${task.id}`, task, { headers });
+  }
+
+  deleteTask(taskId: number) {
+    const token = this.userService.getToken();
+    console.log("🛠️ Token récupéré :", token);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': token || ''
+    });
+
+    return this.http.delete(`${this.apiUrl}/${taskId}`, { headers });
+  }
+  
+}

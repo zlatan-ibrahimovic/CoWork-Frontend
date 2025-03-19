@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { SignupComponent } from './signup.component';
+import { provideHttpClient } from '@angular/common/http';
+import { expect } from '@jest/globals';
 
 describe('SignupComponent', () => {
   let component: SignupComponent;
@@ -8,7 +9,8 @@ describe('SignupComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SignupComponent]
+      imports: [SignupComponent],
+      providers: [provideHttpClient()]
     })
     .compileComponents();
 
@@ -18,6 +20,6 @@ describe('SignupComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component).toBeDefined();
   });
 });

@@ -1,8 +1,12 @@
-<!-- Formulaire d'ajout -->
-<app-task-form (taskAdded)="addTask($event)"></app-task-form>
+<app-task-form 
+  (taskAdded)="addTask($event)" 
+  (taskUpdated)="updateTaskList($event)"
+  [selectedTask]="selectedTask">
+</app-task-form>
+
 
 <div class="container mt-3">
-  <!-- Sélecteur d'affichage -->
+
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h5 class="text-muted">Mes tâches</h5>
     <select class="form-select form-select-sm w-auto" (change)="setViewMode($event)">
@@ -11,17 +15,22 @@
     </select>
   </div>
 
-  <!-- 📌 Vue Liste -->
+
   <ul *ngIf="viewMode === 'list'" class="list-group">
     <li *ngFor="let task of tasks" class="list-group-item d-flex justify-content-between align-items-center">
       <div>
         <strong class="text-primary">{{ task.title }}</strong> - {{ task.description }}
       </div>
       <span class="badge bg-{{ getPriorityClass(task.priority) }}">{{ task.priority }}</span>
+
+      <button class="btn btn-sm btn-warning" (click)="selectTask(task)">Modifier</button>
+      <button class="btn btn-danger btn-sm" (click)="deleteTask(task.id)">
+        Supprimer
+      </button>
     </li>
   </ul>
 
-  <!-- 📌 Vue Cartes -->
+
   <div *ngIf="viewMode === 'cards'" class="row g-3">
     <div *ngFor="let task of tasks" class="col-md-4">
       <div class="card shadow-sm border-0">
@@ -29,12 +38,17 @@
           <h6 class="card-title text-primary">{{ task.title }}</h6>
           <p class="card-text text-muted">{{ task.description }}</p>
           <span class="badge bg-{{ getPriorityClass(task.priority) }}">{{ task.priority }}</span>
+          
+          <button class="btn btn-sm btn-warning" (click)="selectTask(task)">Modifier</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteTask(task.id)">
+            Supprimer
+          </button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Message si aucune tâche -->
+
   <p *ngIf="tasks.length === 0" class="text-muted text-center mt-3">Aucune tâche disponible.</p>
   <p *ngIf="errorMessage" class="alert alert-danger text-center">{{ errorMessage }}</p>
 </div>

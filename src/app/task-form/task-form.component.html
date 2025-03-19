@@ -31,8 +31,19 @@
 
       <!-- Bouton Ajouter -->
       <div class="col-md-2 text-end">
-        <button type="submit" class="btn btn-success btn-sm px-3" [disabled]="taskForm.invalid">Ajouter</button>
+        <button *ngIf="!selectedTask" type="submit" class="btn btn-success btn-sm px-3" (click)="onSubmit()">
+          Ajouter
+        </button>
+        <button *ngIf="selectedTask" type="button" class="btn btn-primary btn-sm px-3" (click)="updateTask()">
+          Enregistrer
+        </button>
       </div>
 
+      <h6 class="mb-2 text-muted">{{ selectedTask ? "Modifier la tâche" : "Ajouter une nouvelle tâche" }}</h6>
+
+      <button *ngIf="selectedTask" type="button" class="btn btn-primary btn-sm px-3" (click)="updateTask()">
+        Enregistrer
+      </button>
+      
     </form>
   </div>

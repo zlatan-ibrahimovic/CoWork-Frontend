@@ -1,28 +1,26 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TaskListComponent } from './task-list.component';
+import { TaskFormComponent } from './task-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideHttpClient } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
-import { TaskService } from '../services/task.service';
 import { expect } from '@jest/globals';
 
-
-describe('TaskListComponent', () => {
-  let component: TaskListComponent;
-  let fixture: ComponentFixture<TaskListComponent>;
+describe('TaskFormComponent', () => {
+  let component: TaskFormComponent;
+  let fixture: ComponentFixture<TaskFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TaskListComponent],
-      providers:[
+      imports: [FormsModule, ReactiveFormsModule, TaskFormComponent],
+      providers: [
         provideHttpClient(),
         provideRouter([]),
-        TaskService
       ]
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TaskListComponent);
+    fixture = TestBed.createComponent(TaskFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

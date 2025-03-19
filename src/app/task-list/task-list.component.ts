@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../services/task.service';
 import { TaskFormComponent } from '../task-form/task-form.component';
+import {FormBuilder, FormGroup } from '@angular/forms';
+import { Task } from '../models/task.model';
 
 @Component({
   selector: 'app-task-list',
@@ -15,8 +17,16 @@ export class TaskListComponent implements OnInit {
   tasks: any[] = [];
   viewMode: 'list' | 'cards' = 'list';
   errorMessage: string | null = null;
+  taskForm: FormGroup;
+  selectedTask: Task | null = null;
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService, private fb: FormBuilder) {
+    this.taskForm = this.fb.group({
+      title: [''],
+      description: [''],
+      priority: ['']
+    });
+  }
 
   ngOnInit(): void {
     this.loadTasks();
@@ -72,5 +82,40 @@ export class TaskListComponent implements OnInit {
       }
     });
   }
+  
+  selectTask(task: Task) {
+    console.log("📌 selectTask() appelée dans TaskListComponent avec :", task);
+    this.selectedTask = { ...task }; // Copie l'objet pour éviter les modifications directes
+    this.taskForm.patchValue({
+      title: task.title,
+      description: task.description,
+      priority: task.priority
+    });
+  }
+
+  updateTaskList(updatedTask: Task) {
+    console.log('🔄 updateTaskList() a été appelé avec:', updatedTask);
+    
+    this.tasks = this.tasks.map((task) =>
+      task.id === updatedTask.id ? updatedTask : task
+    );
+  }
+  
+
+  deleteTask(taskId: number) {
+    if (!confirm("Es-tu sûr de vouloir supprimer cette tâche ?")) {
+      return;
+    }
+  
+    this.taskService.deleteTask(taskId).subscribe({
+      next: () => {
+        console.log(`✅ Tâche ${taskId} supprimée avec succès.`);
+        this.tasks = this.tasks.filter(task => task.id !== taskId);
+      },
+      error: (err) => {
+        console.error(`❌ Erreur lors de la suppression de la tâche ${taskId} :`, err);
+      }
+    });
+  } 
   
 }
