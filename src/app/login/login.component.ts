@@ -1,7 +1,8 @@
+import { AppComponent } from './../app.component';
 import { Component } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from './../user.service';
+import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,12 +17,27 @@ export class LoginComponent {
   errorMessage: string | null = null;
   isLoggedIn = false;
 
-  constructor(private fb: FormBuilder, private userService : UserService, private router : Router) {
+  constructor(private fb: FormBuilder, private appComponent : AppComponent  , private userService : UserService, private router : Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(5)]],
     });
-    this.isLoggedIn = userService.getToken() !== null && userService.getToken() !== undefined;
+  }
+
+  ngOnInit(): void {
+    if (!this.isLoggedIn) {
+      this.isLoggedIn = !!this.userService.getToken();
+    }
+  }
+
+  login() {
+    if (this.loginForm.valid) {
+      this.userService.login(this.loginForm.value).subscribe(response => {
+        this.userService.saveToken(response.token);
+        this.appComponent.tokenExists = true;
+        this.router.navigate(['/tasks']);
+      });
+    }
   }
 
   onSubmit() {
@@ -35,7 +51,7 @@ export class LoginComponent {
           this.errorMessage = null;
           this.isLoggedIn = true;
 
-          this.router.navigate(['/']);
+          this.router.navigate(['/tasks']);
         },
         error: (err) => {
           console.error('Erreur lors de la connexion :', err);

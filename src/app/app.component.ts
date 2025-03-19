@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
-import { UserService } from './user.service';
+import { UserService } from './services/user.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -11,10 +11,19 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor(public userService: UserService, private router: Router) {}
+  tokenExists: boolean = false;
+
+  constructor(public userService: UserService, private router: Router, private cdRef: ChangeDetectorRef) {}
+
+  ngOnInit(): void {
+    this.tokenExists = !!this.userService.getToken();
+  }
 
   logout() {
     this.userService.logout();
+    this.tokenExists = false;
+    this.cdRef.detectChanges();
     this.router.navigate(['/login']);
   }
+  
 }

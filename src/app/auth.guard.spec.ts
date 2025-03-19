@@ -1,17 +1,39 @@
+/// <reference types="jest" />
+
 import { TestBed } from '@angular/core/testing';
-import { CanActivateFn } from '@angular/router';
+import { AuthGuard } from './auth.guard';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { UserService } from './services/user.service';
+import { Router } from '@angular/router';
 
-import { authGuard } from './auth.guard';
-
-describe('authGuard', () => {
-  const executeGuard: CanActivateFn = (...guardParameters) => 
-      TestBed.runInInjectionContext(() => authGuard(...guardParameters));
+describe('AuthGuard', () => {
+  let guard: AuthGuard;
+  let userServiceMock: Partial<UserService>;
+  let routerMock: Partial<Router>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    userServiceMock = {
+      getToken: jest.fn().mockReturnValue('fake-token') // ✅ Simule un token
+    };
+    routerMock = {
+      navigate: jest.fn()
+    };
+
+    TestBed.configureTestingModule({
+      providers: [
+        AuthGuard,
+        provideHttpClient(),
+        provideRouter([]),
+        { provide: UserService, useValue: userServiceMock },
+        { provide: Router, useValue: routerMock }
+      ]
+    });
+
+    guard = TestBed.inject(AuthGuard);
   });
 
-  it('should be created', () => {
-    expect(executeGuard).toBeTruthy();
+  it('should return true when canActivate is called', () => {
+    expect(guard.canActivate()).toBe(true);
   });
 });

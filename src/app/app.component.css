@@ -1,0 +1,17 @@
+.navbar {
+    padding: 10px 0;
+  }
+  
+  .container h1 {
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .btn {
+    font-size: 0.9rem;
+  }
+  
+  .text-center a {
+    text-decoration: none;
+  }
+  
