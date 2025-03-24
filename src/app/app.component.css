@@ -1,6 +1,13 @@
 .navbar {
     padding: 10px 0;
   }
+
+  .cowork-brand {
+    font-weight: 800;
+    font-size: 40px;
+    color: #4E3CDB !important;
+    letter-spacing: 1px;
+  }
   
   .container h1 {
     font-size: 2rem;

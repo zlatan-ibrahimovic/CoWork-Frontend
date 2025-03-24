@@ -130,8 +130,11 @@ h5 {
   gap: 30px;
 }
 
-
-
+@media (max-width: 500px) {
+  .card-container-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
 .error-message {
   color: red;
