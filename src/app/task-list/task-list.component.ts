@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../services/task.service';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import {FormBuilder, FormGroup } from '@angular/forms';
 import { Task } from '../models/task.model';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css'],
-  imports: [CommonModule, TaskFormComponent]
+  imports: [CommonModule, RouterModule]
   
 })
 export class TaskListComponent implements OnInit {
@@ -18,7 +19,10 @@ export class TaskListComponent implements OnInit {
   viewMode: 'list' | 'cards' = 'list';
   errorMessage: string | null = null;
   taskForm: FormGroup;
-  selectedTask: Task | null = null;
+  successMessage: string | null = null;
+  today: Date = new Date();
+
+  @Input() selectedTask: Task | null = null;
 
   constructor(private taskService: TaskService, private fb: FormBuilder) {
     this.taskForm = this.fb.group({
@@ -29,10 +33,12 @@ export class TaskListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadTasks();
-    console.log('🚀 TaskListComponent monté dans le DOM');
-  }
+    this.taskService.tasks$.subscribe(tasks => {
+      this.tasks = tasks;
+    });
   
+    this.taskService.getTasks().subscribe(); // Charge les tâches au démarrage
+  }
 
   loadTasks() {
     this.taskService.getTasks().subscribe({
@@ -93,13 +99,15 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-  updateTaskList(updatedTask: Task) {
-    console.log('🔄 updateTaskList() a été appelé avec:', updatedTask);
-    
-    this.tasks = this.tasks.map((task) =>
-      task.id === updatedTask.id ? updatedTask : task
-    );
-  }
+ onTaskUpdated(updatedTask: Task) {
+  console.log('🔄 Tâche mise à jour dans la liste :', updatedTask);
+
+  // 🔥 Met à jour la tâche dans la liste sans recharger la page
+  this.tasks = this.tasks.map(task =>
+    task.id === updatedTask.id ? updatedTask : task
+  );
+}
+
   
 
   deleteTask(taskId: number) {
@@ -111,6 +119,11 @@ export class TaskListComponent implements OnInit {
       next: () => {
         console.log(`✅ Tâche ${taskId} supprimée avec succès.`);
         this.tasks = this.tasks.filter(task => task.id !== taskId);
+        this.successMessage = "🗑️ Tâche supprimée avec succès.";
+
+        setTimeout(() => {
+          this.successMessage = null;
+        }, 2000);
       },
       error: (err) => {
         console.error(`❌ Erreur lors de la suppression de la tâche ${taskId} :`, err);

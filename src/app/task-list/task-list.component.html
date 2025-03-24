@@ -1,54 +1,95 @@
-<app-task-form 
-  (taskAdded)="addTask($event)" 
-  (taskUpdated)="updateTaskList($event)"
-  [selectedTask]="selectedTask">
-</app-task-form>
-
-
 <div class="container mt-3">
 
+  <!-- En-tête -->
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <h5 class="text-muted">Mes tâches</h5>
+    <h5>Mes tâches</h5>
     <select class="form-select form-select-sm w-auto" (change)="setViewMode($event)">
       <option value="list">Affichage Liste</option>
       <option value="cards">Affichage Cartes</option>
     </select>
   </div>
 
+  <!-- Message succès -->
+  <div *ngIf="successMessage" class="alert alert-success text-center mt-3">
+    {{ successMessage }}
+  </div>
 
-  <ul *ngIf="viewMode === 'list'" class="list-group">
-    <li *ngFor="let task of tasks" class="list-group-item d-flex justify-content-between align-items-center">
-      <div>
-        <strong class="text-primary">{{ task.title }}</strong> - {{ task.description }}
+  <!-- Vue Liste -->
+  <div class="d-flex flex-column align-items-center" *ngIf="viewMode === 'list'">
+    <div *ngFor="let task of tasks" class="list d-flex justify-content-between align-items-center bg-white rounded-4 p-3 mb-3 shadow-sm">
+      <!-- Colonne gauche -->
+      <div class="d-flex align-items-center gap-3">
+        <input type="checkbox" class="form-check-input rounded-checkbox me-3" />
+        <div>
+          <div class="task-title">{{ task.title }}</div>
+          <div class="task-desc text-break">{{ task.description }}</div>
+        </div>
       </div>
-      <span class="badge bg-{{ getPriorityClass(task.priority) }}">{{ task.priority }}</span>
 
-      <button class="btn btn-sm btn-warning" (click)="selectTask(task)">Modifier</button>
-      <button class="btn btn-danger btn-sm" (click)="deleteTask(task.id)">
-        Supprimer
-      </button>
-    </li>
-  </ul>
-
-
-  <div *ngIf="viewMode === 'cards'" class="row g-3">
-    <div *ngFor="let task of tasks" class="col-md-4">
-      <div class="card shadow-sm border-0">
-        <div class="card-body">
-          <h6 class="card-title text-primary">{{ task.title }}</h6>
-          <p class="card-text text-muted">{{ task.description }}</p>
-          <span class="badge bg-{{ getPriorityClass(task.priority) }}">{{ task.priority }}</span>
-          
-          <button class="btn btn-sm btn-warning" (click)="selectTask(task)">Modifier</button>
-          <button class="btn btn-danger btn-sm" (click)="deleteTask(task.id)">
-            Supprimer
+      <!-- Colonne droite -->
+      <div class="d-flex align-items-center gap-4">
+        <div class="d-flex align-items-center gap-4">
+          <span class="badge task-badge-priority">{{ task.priority }}</span>
+          <span class="badge task-badge-user">SOULIYAN</span>
+          <button class="btn btn-edit" [routerLink]="['/tasks/edit', task.id]">
+            <img src="assets/pen.png" alt="pen">
           </button>
         </div>
+        <button class="btn btn-edit text-white" (click)="deleteTask(task.id)">
+          <i class="bi bi-trash3-fill"></i>
+        </button>
       </div>
     </div>
   </div>
 
+  <!-- Vue Cartes -->
+  <div *ngIf="viewMode === 'cards'" class="card-container-grid">
+    <div *ngFor="let task of tasks">
+      <div class="custom-task-card bg-white p-4 rounded-4 shadow-sm d-flex flex-column justify-content-between">
 
+        <!-- Titre + Date -->
+        <div>
+          <div class="d-flex align-items-start gap-40 mb-1">
+            <input type="checkbox" class="form-check-input rounded-checkbox mt-1">
+            <div>
+            <h5 class="fw-bold mb-1">{{ task.title }}</h5>
+            <small class="text-muted d-block mb-3">Créée le {{ today | date:'dd/MM/yyyy' }}</small>
+            </div>
+          </div>
+          
+          <!-- Priorité -->
+          <span class="badge task-badge-priority mb-3">{{ task.priority }}</span>
+
+          <!-- Description -->
+          <p class="task-desc mb-4">{{ task.description }}</p>
+        </div>
+
+        <!-- Footer -->
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="badge task-badge-user">SOULIYAN</span>
+          <div class="d-flex gap-2">
+            <button class="btn btn-edit" [routerLink]="['/tasks/edit', task.id]">
+              <img src="assets/pen.png" alt="Modifier">
+            </button>
+            <button class="btn btn-edit text-white" (click)="deleteTask(task.id)">
+              <i class="bi bi-trash3-fill"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Bouton Ajouter une tâche -->
+  <div class="add-task-btn mt-4">
+    <a routerLink="/tasks/add" class="btn custom-add-task d-flex align-items-center justify-content-center gap-2 w-100">
+      <img src="assets/vector.png" alt="Ajouter" class="icon-circle" />
+      <span>Ajouter une nouvelle tâche</span>
+    </a>
+  </div>
+
+  <!-- Messages d'état -->
   <p *ngIf="tasks.length === 0" class="text-muted text-center mt-3">Aucune tâche disponible.</p>
   <p *ngIf="errorMessage" class="alert alert-danger text-center">{{ errorMessage }}</p>
 </div>
