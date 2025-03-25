@@ -1,7 +1,6 @@
 import { provideRouter, Routes } from '@angular/router';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
-import { AppComponent } from './app.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { AuthGuard } from './auth.guard';
 import { TaskFormComponent } from './task-form/task-form.component';
