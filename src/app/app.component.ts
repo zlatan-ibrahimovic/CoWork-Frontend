@@ -1,28 +1,38 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
-import { RouterModule, Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterModule, Router, NavigationEnd} from '@angular/router';
 import { UserService } from './services/user.service';
 import { CommonModule } from '@angular/common';
+import { TaskMainComponent } from './task-main/task-main.component';
+import { HomeComponent } from "./home/home.component";
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, TaskMainComponent, HomeComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   tokenExists: boolean = false;
-
-  constructor(public userService: UserService, private router: Router, private cdRef: ChangeDetectorRef) {}
+  isHomePage: boolean = false;
+  
+  constructor(public userService: UserService, private router: Router) {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: any) => {
+        this.isHomePage = event.url === '/' || event.url === '/home'; // Vérifie l'URL
+      });
+  }
 
   ngOnInit(): void {
-    this.tokenExists = !!this.userService.getToken();
+    this.userService.token$.subscribe((isLoggedIn) => {
+      this.tokenExists = isLoggedIn;
+    });
   }
 
   logout() {
     this.userService.logout();
-    this.tokenExists = false;
-    this.cdRef.detectChanges();
     this.router.navigate(['/login']);
   }
   

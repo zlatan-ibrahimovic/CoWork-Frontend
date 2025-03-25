@@ -1,49 +1,50 @@
-<div class="container mt-3">
-  
-  <!-- Formulaire intégré à la liste -->
-  <div class="bg-light border rounded p-3 mb-3">
-    <h6 class="mb-2 text-muted">Ajouter une nouvelle tâche</h6>
-    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="row g-2 align-items-end">
+<div class="container my-5">
+  <div class="task-form-box bg-white p-4 rounded shadow-sm">
+    <h5 class="mb-3">
+      {{ selectedTask ? 'Modifier la tâche' : 'Ajouter une nouvelle tâche' }}
+    </h5>
+    
 
-      <!-- Titre -->
-      <div class="col-md-4">
-        <label for="title" class="form-label mb-1">Titre</label>
-        <input id="title" type="text" class="form-control form-control-sm" formControlName="title" (input)="onTitleChange($event)" placeholder="Ex : Acheter du pain" [ngClass]="{'is-invalid': taskForm.controls['title'].invalid && taskForm.controls['title'].touched}">
-        <div class="invalid-feedback">Le titre est requis.</div>
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+      <div class="row g-3">
+
+        <!-- Titre -->
+        <div class="col-md-9 mb-3">
+          <input type="text" formControlName="title" class="form-control" placeholder="Titre de la tâche"
+            [ngClass]="{'is-invalid': taskForm.controls['title'].invalid && taskForm.controls['title'].touched}">
+          <div class="invalid-feedback">Le titre est requis.</div>
+        </div>
+
+        <!-- Priorité -->
+        <div class="col-md-3">
+          <select formControlName="priority" class="form-select">
+            <option value="" disabled>Priorité</option>
+            <option value="HIGH">Haute</option>
+            <option value="MEDIUM">Normale</option>
+            <option value="LOW">Basse</option>
+          </select>
+        </div>
+
+        <!-- Description -->
+        <div class="col-12">
+          <textarea formControlName="description" rows="4" class="form-control" placeholder="Description"
+            [ngClass]="{'is-invalid': taskForm.controls['description'].invalid && taskForm.controls['description'].touched}"></textarea>
+          <div class="invalid-feedback">La description est requise.</div>
+        </div>
+
+        <!-- Bouton Valider -->
+        <div class="col-12 text-end">
+          <button type="submit" class="btn btn-validate px-5">
+            {{ selectedTask ? 'Enregistrer' : 'Valider' }}
+          </button>
+        </div>
+
       </div>
-
-      <!-- Description -->
-      <div class="col-md-4">
-        <label for="description" class="form-label mb-1">Description</label>
-        <input id="description" type="text" class="form-control form-control-sm" formControlName="description" placeholder="Détails..." [ngClass]="{'is-invalid': taskForm.controls['description'].invalid && taskForm.controls['description'].touched}">
-        <div class="invalid-feedback">La description est requise.</div>
-      </div>
-
-      <!-- Priorité -->
-      <div class="col-md-2">
-        <label for="priority" class="form-label mb-1">Priorité</label>
-        <select id="priority" class="form-select form-select-sm" formControlName="priority">
-          <option value="HIGH">Haute</option>
-          <option value="MEDIUM">Normale</option>
-          <option value="LOW">Basse</option>
-        </select>
-      </div>
-
-      <!-- Bouton Ajouter -->
-      <div class="col-md-2 text-end">
-        <button *ngIf="!selectedTask" type="submit" class="btn btn-success btn-sm px-3" (click)="onSubmit()">
-          Ajouter
-        </button>
-        <button *ngIf="selectedTask" type="button" class="btn btn-primary btn-sm px-3" (click)="updateTask()">
-          Enregistrer
-        </button>
-      </div>
-
-      <h6 class="mb-2 text-muted">{{ selectedTask ? "Modifier la tâche" : "Ajouter une nouvelle tâche" }}</h6>
-
-      <button *ngIf="selectedTask" type="button" class="btn btn-primary btn-sm px-3" (click)="updateTask()">
-        Enregistrer
-      </button>
-      
     </form>
+
+    <!-- Message de succès -->
+    <div *ngIf="successMessage" class="alert alert-success mt-3 text-center">
+      {{ successMessage }}
+    </div>
   </div>
+</div>

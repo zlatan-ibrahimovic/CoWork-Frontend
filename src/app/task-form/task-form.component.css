@@ -1,13 +1,42 @@
-.error-message {
-    color: red;
-    font-size: 0.9em;
-  }
-
-  .btn-success {
-    background-color: #198754;
-    border: none;
+body {
+  background-color: #f8f8f8;
 }
 
-.btn-success:hover {
-    background-color: #157347;
+h5{
+  font-size: 26px;
+  font-weight: 800;
+}
+::placeholder {
+  font-size: 14px;
+  font-weight: light;
+}
+
+.task-form-box {
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 20px;
+}
+
+input.form-control,
+select.form-select,
+textarea.form-control {
+  border-radius: 14px;
+}
+
+input.form-control.is-invalid,
+textarea.form-control.is-invalid {
+  border-radius: 14px;
+}
+
+.btn-validate {
+  background-color: #4E3CDB;
+  opacity: 1;
+  color: white;
+  border-radius: 14px;
+  height: 40px;
+  width: 185px;
+}
+
+.btn-validate:hover {
+  background-color: #5a39d9;
 }
