@@ -1,0 +1,29 @@
+<div class="container mt-5">
+    <h1 class="fw-bold">Organisez vos tâches en toute simplicité !</h1>
+    <p class="text-muted">Cowork vous aide à mieux gérer votre travail au quotidien.</p>
+  
+    <div class="d-flex  mt-4">
+      <a *ngIf="tokenExists" routerLink="/tasks" class="btn me-2">Voir mes tâches</a>
+      <a *ngIf="tokenExists" routerLink="/tasks/add" class="btn ">Ajouter une tâche</a>
+    </div>
+  
+    <img src="assets/tasklist.png" alt="illustration" class="img-fluid mt-4" width="500px">
+  
+    <div class="mt-5">
+      <h3>Pourquoi utiliser Cowork ?</h3>
+      <ul class="list-unstyled">
+        <li>✅ Gestion simple et rapide des tâches</li>
+        <li>✅ Vue en liste et en cartes</li>
+        <li>✅ Interface intuitive</li>
+      </ul>
+    </div>
+  
+    <footer class="mt-5 text-muted">
+      <p>Développé par Souli-Yan</p>
+      <p>
+        🔗 <a href="https://github.com/Tsuna21/CoWork-Frontend" target="_blank">Frontend GitHub</a> |
+        🔗 <a href="https://github.com/Tsuna21/CoWork-Backend" target="_blank">Backend GitHub</a>
+      </p>
+    </footer>
+  </div>
+  
